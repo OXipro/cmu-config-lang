@@ -24,11 +24,11 @@ public class ConfigLang {
         this.playerSettingRepository = playerSettingRepository;
     }
 
-    public void init(Map<String, Language> defaultLang, boolean apiLanguage) {
-        if (apiLanguage) {
+    public void init(Map<String, Language> defaultLangCountryMap, boolean ipLanguage) {
+        if (ipLanguage) {
             this.iPLanguage = new IPLanguage();
         }
-        languageManager = new LanguageManager(plugin, playerSettingCache, playerSettingRepository, defaultLang, iPLanguage);
+        languageManager = new LanguageManager(plugin, playerSettingCache, playerSettingRepository, defaultLangCountryMap, iPLanguage);
     }
 
     public LanguageManager getLanguageManager() {
