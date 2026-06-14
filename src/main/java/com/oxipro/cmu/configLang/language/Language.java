@@ -2,7 +2,9 @@ package com.oxipro.cmu.configLang.language;
 
 import com.oxipro.cmu.configLang.config.ConfigFile;
 
-public abstract class Language implements ILanguage {
+import java.util.List;
+
+public class Language implements ILanguage {
 
     protected final ConfigFile config;
     private final String fancyName;
@@ -14,7 +16,7 @@ public abstract class Language implements ILanguage {
         this.fancyName = config.getString(DefaultLanguagePaths.LANGUAGE_FANCY_NAME);
     }
 
-    protected abstract void saveDefaults();
+    protected void saveDefaults() {}
 
     public String getId() { return config.get().getName(); }
 
@@ -23,6 +25,11 @@ public abstract class Language implements ILanguage {
     }
 
     public String getFancyName() { return fancyName; }
+
+    public List<String> getMessageAsList(String path) {
+        if (config.get().contains(path)) return config.get().getStringList(path);
+        return List.of(path);
+    }
 
     public String getMessage(String path) {
         if (config.get().contains(path)) return config.getString(path);

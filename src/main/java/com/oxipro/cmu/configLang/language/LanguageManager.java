@@ -47,7 +47,8 @@ public class LanguageManager {
             String name = file.getName().replace(".yml", "").toLowerCase();
             if (defaultLanguages.containsKey(name)) continue;
             ConfigFile cf = new ConfigFile(plugin, "languages/" + file.getName());
-            addLanguage(name, new DynamicLanguage(cf, name));
+            addLanguage(name, new Language(cf) {
+            });
         }
     }
 
