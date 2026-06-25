@@ -1,6 +1,4 @@
-package com.oxipro.cmu.configLang.language;
-
-import com.oxipro.cmu.configLang.config.ConfigFile;
+package com.oxipro.cmu.configlang.api;
 
 import java.util.List;
 
@@ -18,5 +16,5 @@ public interface ILanguage {
 
     void save(boolean copyDefaults);
 
-    ConfigFile getConfig();
+    IConfigFile getConfig();
 }

@@ -1,8 +1,8 @@
-package com.oxipro.cmu.configLang;
+package com.oxipro.cmu.configlang.bukkit;
 
-import com.oxipro.cmu.configLang.language.IPLanguage;
-import com.oxipro.cmu.configLang.language.Language;
-import com.oxipro.cmu.configLang.language.LanguageManager;
+import com.oxipro.cmu.configlang.api.ILanguage;
+import com.oxipro.cmu.configlang.bukkit.language.LanguageManager;
+import com.oxipro.cmu.configlang.common.IPLanguage;
 import com.oxipro.cssdb.cache.PlayerSettingCache;
 import com.oxipro.cssdb.repository.playerSettings.PlayerSettingRepository;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,7 +24,7 @@ public class ConfigLang {
         this.playerSettingRepository = playerSettingRepository;
     }
 
-    public void init(Map<String, Language> defaultLangCountryMap, boolean ipLanguage) {
+    public void init(Map<String, ILanguage> defaultLangCountryMap, boolean ipLanguage) {
         if (ipLanguage) {
             this.iPLanguage = new IPLanguage();
         }

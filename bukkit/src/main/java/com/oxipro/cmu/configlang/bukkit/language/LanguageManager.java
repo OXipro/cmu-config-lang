@@ -1,6 +1,8 @@
-package com.oxipro.cmu.configLang.language;
+package com.oxipro.cmu.configlang.bukkit.language;
 
-import com.oxipro.cmu.configLang.config.ConfigFile;
+import com.oxipro.cmu.configlang.api.ILanguage;
+import com.oxipro.cmu.configlang.bukkit.config.ConfigFile;
+import com.oxipro.cmu.configlang.common.IPLanguage;
 import com.oxipro.cssdb.cache.PlayerSettingCache;
 import com.oxipro.cssdb.repository.playerSettings.PlayerSettingRepository;
 import org.bukkit.entity.Player;
@@ -18,10 +20,10 @@ public class LanguageManager {
     private final JavaPlugin plugin;
     private final PlayerSettingCache playerSettingCache;
     private final PlayerSettingRepository playerSettingRepository;
-    private Map<String, Language> defaultLanguages;
+    private Map<String, ILanguage> defaultLanguages;
     private final IPLanguage iPLanguage;
 
-    public LanguageManager(JavaPlugin plugin, PlayerSettingCache playerSettingCache, PlayerSettingRepository playerSettingRepository, Map<String, Language> defaultLanguages, IPLanguage iPLanguage) {
+    public LanguageManager(JavaPlugin plugin, PlayerSettingCache playerSettingCache, PlayerSettingRepository playerSettingRepository, Map<String, ILanguage> defaultLanguages, IPLanguage iPLanguage) {
         this.plugin = plugin;
         this.playerSettingCache = playerSettingCache;
         this.playerSettingRepository = playerSettingRepository;
@@ -32,7 +34,7 @@ public class LanguageManager {
 
     private void loadLanguages() {
         if (defaultLanguages != null) {
-            for (Language defaultLang : defaultLanguages.values()) {
+            for (ILanguage defaultLang : defaultLanguages.values()) {
                 addLanguage(defaultLang.getId(), defaultLang);
             }
         }
@@ -67,7 +69,7 @@ public class LanguageManager {
         return getLanguage(langIso);
     }
 
-    /** get The playerLanguage from the db if he exists
+    /** Get The playerLanguage from the db if he exists
      * Can get IPLanguage if player isn't loaded in db
      * @param player
      * @return
@@ -85,7 +87,7 @@ public class LanguageManager {
 
     public String getIPLangIso(Player player) {
         if (iPLanguage == null) return Locale.ENGLISH.getLanguage();
-        Locale locale = iPLanguage.getLocaleFromPlayer(player);
+        Locale locale = iPLanguage.getLocaleFromIp(player.getAddress().getHostName());
         return locale.getISO3Language();
     }
 

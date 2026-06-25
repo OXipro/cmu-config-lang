@@ -1,9 +1,7 @@
-package com.oxipro.cmu.configLang.language;
+package com.oxipro.cmu.configlang.common;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.bukkit.entity.Player;
-
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -36,12 +34,6 @@ public class IPLanguage {
         this.defaultCountryToLocale = ctl;
     }
 
-    public Locale getLocaleFromPlayer(Player player) {
-        if (player == null) return null;
-        return getLocaleFromIp(player.getAddress().getAddress().toString());
-    }
-
-    // 1) IP -> country code
     public String getCountryCode(String ip) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -65,7 +57,6 @@ public class IPLanguage {
         }
     }
 
-    // 2) country -> language ISO (simple mapping)
     public String getLanguageCode(String countryCode) {
         if (countryCode == null) return "en";
 
@@ -101,7 +92,6 @@ public class IPLanguage {
         }
     }
 
-    // 3) final locale
     public Locale getLocaleFromIp(String ip) {
         String country = getCountryCode(ip);
 

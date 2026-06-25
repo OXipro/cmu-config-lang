@@ -1,5 +1,6 @@
-package com.oxipro.cmu.configLang.config;
+package com.oxipro.cmu.configlang.bukkit.config;
 
+import com.oxipro.cmu.configlang.api.IConfigFile;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -7,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 
-public class ConfigFile {
+public class ConfigFile implements IConfigFile {
 
     private final JavaPlugin plugin;
     private final String configPath;

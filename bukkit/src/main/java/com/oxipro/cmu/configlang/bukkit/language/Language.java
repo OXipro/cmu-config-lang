@@ -1,6 +1,10 @@
-package com.oxipro.cmu.configLang.language;
+package com.oxipro.cmu.configlang.bukkit.language;
 
-import com.oxipro.cmu.configLang.config.ConfigFile;
+
+
+import com.oxipro.cmu.configlang.api.DefaultLanguagePaths;
+import com.oxipro.cmu.configlang.api.ILanguage;
+import com.oxipro.cmu.configlang.bukkit.config.ConfigFile;
 
 import java.util.List;
 
