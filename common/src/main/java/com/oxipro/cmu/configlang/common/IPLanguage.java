@@ -93,19 +93,16 @@ public class IPLanguage {
     }
 
     public Locale getLocaleFromIp(String ip) {
-        String country = getCountryCode(ip);
-
-        String lang = getLanguageCode(country);
-
-        if (lang == null) {
-            lang = "en";
+        try {
+            String country = getCountryCode(ip);
+            String lang = getLanguageCode(country);
+            if (lang == null || country == null) {
+                return new Locale("en", "EN");
+            }
+            return new Locale(lang, country);
+        } catch (Exception e) {
+            return new Locale("en", "EN");
         }
-
-        if (country == null) {
-            return Locale.ENGLISH;
-        }
-
-        return new Locale(lang, country);
     }
 
 }

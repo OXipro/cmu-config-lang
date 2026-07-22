@@ -1,6 +1,7 @@
 package com.oxipro.cmu.configlang.bukkit.language;
 
 import com.oxipro.cmu.configlang.api.ILanguage;
+import com.oxipro.cmu.configlang.api.ILanguageManager;
 import com.oxipro.cmu.configlang.bukkit.config.ConfigFile;
 import com.oxipro.cmu.configlang.common.IPLanguage;
 import com.oxipro.cssdb.cache.PlayerSettingCache;
@@ -14,7 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-public class LanguageManager {
+public class LanguageManager implements ILanguageManager {
 
     private final Map<String, ILanguage> languages = new HashMap<>();
     private final JavaPlugin plugin;
@@ -54,15 +55,18 @@ public class LanguageManager {
         }
     }
 
+    @Override
     public void addLanguage(String id, ILanguage language) {
-        languages.put(id.toLowerCase(), language);
+        languages.put(id, language);
     }
 
+    @Override
     public ILanguage getLanguage(String id) {
         if (id == null) return languages.get("EN-en");
         return languages.getOrDefault(id.toLowerCase(), languages.get("EN-en"));
     }
 
+    @Override
     public ILanguage getPlayerLanguage(UUID playerUUID) {
         if (playerUUID == null) return null;
         String langIso = playerSettingCache.get(playerUUID, "lang_iso");
