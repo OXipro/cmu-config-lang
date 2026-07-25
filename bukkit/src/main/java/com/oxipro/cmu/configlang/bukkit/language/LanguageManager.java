@@ -3,7 +3,7 @@ package com.oxipro.cmu.configlang.bukkit.language;
 import com.oxipro.cmu.configlang.api.ILanguage;
 import com.oxipro.cmu.configlang.api.ILanguageManager;
 import com.oxipro.cmu.configlang.bukkit.config.ConfigFile;
-import com.oxipro.cmu.configlang.common.IPLanguage;
+import com.oxipro.cmu.configlang.common.langProvider.IPLanguage;
 import com.oxipro.cssdb.cache.PlayerSettingCache;
 import com.oxipro.cssdb.repository.playerSettings.PlayerSettingRepository;
 import org.bukkit.entity.Player;
@@ -35,8 +35,8 @@ public class LanguageManager implements ILanguageManager {
 
     private void loadLanguages() {
         if (defaultLanguages != null) {
-            for (ILanguage defaultLang : defaultLanguages.values()) {
-                addLanguage(defaultLang.getId(), defaultLang);
+            for (Map.Entry<String, ILanguage> entry : defaultLanguages.entrySet()) {
+                addLanguage(entry.getKey(), entry.getValue());
             }
         }
 

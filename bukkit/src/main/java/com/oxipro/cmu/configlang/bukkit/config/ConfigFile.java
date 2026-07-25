@@ -78,4 +78,10 @@ public class ConfigFile implements IConfigFile {
         return (float) configuration.getDouble(path);
     }
 
+    public String getFileName() {
+        String name = file.getName();
+        int dot = name.lastIndexOf('.');
+        return dot > 0 ? name.substring(0, dot) : name;
+    }
+
 }

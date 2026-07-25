@@ -1,7 +1,5 @@
 package com.oxipro.cmu.configlang.bukkit.language;
 
-
-
 import com.oxipro.cmu.configlang.api.DefaultLanguagePaths;
 import com.oxipro.cmu.configlang.api.ILanguage;
 import com.oxipro.cmu.configlang.bukkit.config.ConfigFile;
@@ -22,7 +20,7 @@ public class Language implements ILanguage {
 
     protected void saveDefaults() {}
 
-    public String getId() { return config.get().getName(); }
+    public String getId() { return config.getFileName(); }
 
     public void addDefault(String path, Object value) {
         config.addDefault(path, value);

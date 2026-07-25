@@ -2,7 +2,7 @@ package com.oxipro.cmu.configlang.bukkit;
 
 import com.oxipro.cmu.configlang.api.ILanguage;
 import com.oxipro.cmu.configlang.bukkit.language.LanguageManager;
-import com.oxipro.cmu.configlang.common.IPLanguage;
+import com.oxipro.cmu.configlang.common.langProvider.IPLanguage;
 import com.oxipro.cssdb.cache.PlayerSettingCache;
 import com.oxipro.cssdb.repository.playerSettings.PlayerSettingRepository;
 import org.bukkit.plugin.java.JavaPlugin;

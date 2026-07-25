@@ -20,4 +20,6 @@ public interface IConfigFile {
     double getDouble(String path);
 
     float getFloat(String path);
+
+    String getFileName();
 }

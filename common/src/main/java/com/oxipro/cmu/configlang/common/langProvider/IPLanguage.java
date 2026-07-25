@@ -1,4 +1,4 @@
-package com.oxipro.cmu.configlang.common;
+package com.oxipro.cmu.configlang.common.langProvider;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
