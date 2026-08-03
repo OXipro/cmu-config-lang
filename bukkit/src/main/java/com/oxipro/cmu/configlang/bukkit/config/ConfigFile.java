@@ -1,6 +1,6 @@
 package com.oxipro.cmu.configlang.bukkit.config;
 
-import com.oxipro.cmu.configlang.api.IConfigFile;
+import com.oxipro.cmu.configlang.api.config.IConfigFile;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;

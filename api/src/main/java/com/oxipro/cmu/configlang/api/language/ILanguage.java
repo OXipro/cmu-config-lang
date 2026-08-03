@@ -1,4 +1,6 @@
-package com.oxipro.cmu.configlang.api;
+package com.oxipro.cmu.configlang.api.language;
+
+import com.oxipro.cmu.configlang.api.config.IConfigFile;
 
 import java.util.List;
 

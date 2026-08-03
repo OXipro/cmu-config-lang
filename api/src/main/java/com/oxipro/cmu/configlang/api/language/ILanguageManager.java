@@ -1,4 +1,4 @@
-package com.oxipro.cmu.configlang.api;
+package com.oxipro.cmu.configlang.api.language;
 
 import java.util.UUID;
 
