@@ -16,9 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/** Resolves a locale from a public IP (ip-api.com). */
 public class IpLanguageDetector implements ILanguageDetector<String> {
 
-    private static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
     private static final Duration TIMEOUT = Duration.ofSeconds(3);
 
     private final HttpClient client;
@@ -47,22 +47,26 @@ public class IpLanguageDetector implements ILanguageDetector<String> {
 
     @Override
     public Locale detect(String ip) {
+        if (ip == null || ip.isEmpty() || isPrivate(ip)) return null;
+
         Locale cached = cache.get(ip);
         if (cached != null) return cached;
+
         Locale resolved = resolve(ip);
-        cache.put(ip, resolved);
+        if (resolved != null) cache.put(ip, resolved);
         return resolved;
     }
 
     public CompletableFuture<Locale> detectAsync(String ip) {
+        if (ip == null || ip.isEmpty() || isPrivate(ip)) {
+            return CompletableFuture.completedFuture(null);
+        }
         Locale cached = cache.get(ip);
         if (cached != null) return CompletableFuture.completedFuture(cached);
         return CompletableFuture.supplyAsync(() -> detect(ip), executor);
     }
 
     private Locale resolve(String ip) {
-        if (ip == null || ip.isEmpty() || isPrivate(ip)) return DEFAULT_LOCALE;
-
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://ip-api.com/json/" + ip + "?fields=status,countryCode"))
@@ -74,14 +78,15 @@ public class IpLanguageDetector implements ILanguageDetector<String> {
             JsonObject json = JsonParser.parseString(response.body()).getAsJsonObject();
 
             if (!json.has("status") || !"success".equals(json.get("status").getAsString())) {
-                return DEFAULT_LOCALE;
+                return null;
             }
 
             String countryCode = json.get("countryCode").getAsString();
-            String language = countryToLanguage.getOrDefault(countryCode, "en");
+            String language = countryToLanguage.get(countryCode);
+            if (language == null) return null;
             return new Locale(language, countryCode);
         } catch (Exception e) {
-            return DEFAULT_LOCALE;
+            return null;
         }
     }
 
@@ -108,6 +113,9 @@ public class IpLanguageDetector implements ILanguageDetector<String> {
         map.put("PT", "pt");
         map.put("BR", "pt");
         map.put("NL", "nl");
+        map.put("US", "en");
+        map.put("GB", "en");
+        map.put("EN", "en");
         return map;
     }
 }

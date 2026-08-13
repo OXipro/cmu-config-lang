@@ -1,11 +1,12 @@
 package com.oxipro.cmu.configlang.api.language.db;
 
+import java.util.Locale;
 import java.util.UUID;
 
 public interface ILanguageDB {
     boolean has(UUID playerId);
 
-    String getLangId(UUID playerId);
+    Locale getLocale(UUID playerId);
 
-    void setLangId(UUID playerId, String langId);
+    void setLocale(UUID playerId, Locale locale);
 }

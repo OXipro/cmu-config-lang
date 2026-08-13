@@ -1,9 +1,9 @@
-package com.oxipro.cmu.configlang.minestom;
+package com.oxipro.cmu.configlang.velocity;
 
 import com.oxipro.cmu.configlang.api.language.ILanguage;
 import com.oxipro.cmu.configlang.api.language.LanguageSettings;
 import com.oxipro.cmu.configlang.common.languagedb.CSSDBLanguageDB;
-import com.oxipro.cmu.configlang.minestom.language.LanguageManager;
+import com.oxipro.cmu.configlang.velocity.language.LanguageManager;
 import com.oxipro.cssdb.cache.PlayerSettingCache;
 import com.oxipro.cssdb.repository.playerSettings.PlayerSettingRepository;
 
