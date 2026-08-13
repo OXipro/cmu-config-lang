@@ -3,10 +3,11 @@ package com.oxipro.cmu.configlang.api.language;
 import com.oxipro.cmu.configlang.api.config.IConfigFile;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface ILanguage {
 
-    String getId();
+    Locale getLocale();
 
     void addDefault(String path, Object value);
 

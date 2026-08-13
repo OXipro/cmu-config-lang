@@ -1,25 +1,34 @@
 package com.oxipro.cmu.configlang.standalone.language;
 
-import com.oxipro.cmu.configlang.api.language.defaults.DefaultLanguagePaths;
 import com.oxipro.cmu.configlang.api.language.ILanguage;
+import com.oxipro.cmu.configlang.api.language.Locales;
+import com.oxipro.cmu.configlang.api.language.defaults.DefaultLanguagePaths;
 import com.oxipro.cmu.configlang.standalone.config.ConfigFile;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class Language implements ILanguage {
 
     private final ConfigFile config;
+    private final Locale locale;
     private final String fancyName;
 
     public Language(ConfigFile config) {
+        this(Locales.parse(config.getFileName()), config);
+    }
+
+    public Language(Locale locale, ConfigFile config) {
         this.config = config;
+        this.locale = Objects.requireNonNull(locale, "locale");
         config.save();
         this.fancyName = config.getString(DefaultLanguagePaths.LANGUAGE_FANCY_NAME);
     }
 
     @Override
-    public String getId() {
-        return config.getFileName();
+    public Locale getLocale() {
+        return locale;
     }
 
     @Override

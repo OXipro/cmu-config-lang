@@ -5,12 +5,13 @@ import com.oxipro.cmu.configlang.api.language.detection.ILanguageDetector;
 import java.util.List;
 import java.util.Locale;
 
+/** First non-null detector wins. */
 public class ChainedLanguageProvider<T> implements ILanguageDetector<T> {
 
     private final List<ILanguageDetector<T>> providers;
 
     public ChainedLanguageProvider(List<ILanguageDetector<T>> providers) {
-        this.providers = providers;
+        this.providers = providers != null ? List.copyOf(providers) : List.of();
     }
 
     @Override
@@ -19,6 +20,6 @@ public class ChainedLanguageProvider<T> implements ILanguageDetector<T> {
             Locale locale = provider.detect(source);
             if (locale != null) return locale;
         }
-        return Locale.ENGLISH;
+        return null;
     }
 }

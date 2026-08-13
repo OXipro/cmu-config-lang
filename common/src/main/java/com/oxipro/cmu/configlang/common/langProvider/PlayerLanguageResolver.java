@@ -9,26 +9,42 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 
+/** Resolves a player locale: DB (optional), then detectors, else null. */
 public class PlayerLanguageResolver<T> {
 
     private final ILanguageDB languageDB;
     private final Function<T, UUID> idExtractor;
-    private final ChainedLanguageProvider<T> chain;
+    private final List<ILanguageDetector<T>> providers;
 
     public PlayerLanguageResolver(ILanguageDB languageDB, Function<T, UUID> idExtractor, List<ILanguageDetector<T>> providers) {
         this.languageDB = languageDB;
         this.idExtractor = idExtractor;
-        this.chain = new ChainedLanguageProvider<>(providers);
+        this.providers = providers != null ? List.copyOf(providers) : List.of();
     }
 
-    public String resolveLangId(T source, Set<String> knownLanguageIds) {
-        UUID id = idExtractor.apply(source);
+    /** DB preference, then detectors. */
+    public Locale resolveLocale(T source, Set<Locale> knownLocales) {
+        if (source == null) return null;
 
-        if (languageDB.has(id)) {
-            return languageDB.getLangId(id);
+        UUID id = idExtractor.apply(source);
+        if (id != null && languageDB != null && languageDB.has(id)) {
+            return languageDB.getLocale(id);
         }
 
-        Locale locale = chain.detect(source);
-        return knownLanguageIds.contains(locale.getLanguage()) ? locale.getLanguage() : null;
+        return detectLocale(source, knownLocales);
+    }
+
+    /** Detectors only (client / IP). No DB. */
+    public Locale detectLocale(T source, Set<Locale> knownLocales) {
+        if (source == null) return null;
+
+        for (ILanguageDetector<T> provider : providers) {
+            Locale locale = provider.detect(source);
+            if (locale != null && knownLocales.contains(locale)) {
+                return locale;
+            }
+        }
+
+        return null;
     }
 }
