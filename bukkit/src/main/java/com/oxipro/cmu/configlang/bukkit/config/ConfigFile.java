@@ -53,6 +53,10 @@ public class ConfigFile implements IConfigFile {
         configuration.addDefault(path, value);
     }
 
+    public boolean contains(String path) {
+        return configuration.contains(path);
+    }
+
     public FileConfiguration get() {
         return configuration;
     }

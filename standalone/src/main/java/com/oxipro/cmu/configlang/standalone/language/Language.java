@@ -13,7 +13,6 @@ public class Language implements ILanguage {
 
     private final ConfigFile config;
     private final Locale locale;
-    private final String fancyName;
 
     public Language(ConfigFile config) {
         this(Locales.parse(config.getFileName()), config);
@@ -22,9 +21,10 @@ public class Language implements ILanguage {
     public Language(Locale locale, ConfigFile config) {
         this.config = config;
         this.locale = Objects.requireNonNull(locale, "locale");
-        config.save();
-        this.fancyName = config.getString(DefaultLanguagePaths.LANGUAGE_FANCY_NAME);
+        saveDefaults();
     }
+
+    protected void saveDefaults() {}
 
     @Override
     public Locale getLocale() {
@@ -38,7 +38,7 @@ public class Language implements ILanguage {
 
     @Override
     public String getFancyName() {
-        return fancyName;
+        return config.getString(DefaultLanguagePaths.LANGUAGE_FANCY_NAME);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Language implements ILanguage {
 
     @Override
     public void save(boolean copyDefaults) {
-        config.save();
+        config.save(copyDefaults);
     }
 
     @Override

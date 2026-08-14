@@ -39,13 +39,13 @@ public class ConfigFile implements IConfigFile {
     }
 
     private void createFile(InputStream defaultResource) {
-        if (file.exists()) return;
-        File parent = file.getParentFile();
-        if (parent != null && !parent.exists()) parent.mkdirs();
-        try {
-            if (defaultResource != null) {
+        try (InputStream in = defaultResource) {
+            if (file.exists()) return;
+            File parent = file.getParentFile();
+            if (parent != null && !parent.exists()) parent.mkdirs();
+            if (in != null) {
                 try (FileOutputStream out = new FileOutputStream(file)) {
-                    defaultResource.transferTo(out);
+                    in.transferTo(out);
                 }
             } else {
                 file.createNewFile();
@@ -72,8 +72,14 @@ public class ConfigFile implements IConfigFile {
 
     @Override
     public void save() {
-        for (Map.Entry<String, Object> entry : defaults.entrySet()) {
-            if (!contains(entry.getKey())) set(entry.getKey(), entry.getValue());
+        save(true);
+    }
+
+    public void save(boolean copyDefaults) {
+        if (copyDefaults) {
+            for (Map.Entry<String, Object> entry : defaults.entrySet()) {
+                if (resolve(data, entry.getKey()) == null) set(entry.getKey(), entry.getValue());
+            }
         }
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
             yaml.dump(data, writer);
@@ -87,6 +93,7 @@ public class ConfigFile implements IConfigFile {
         defaults.put(path, value);
     }
 
+    @Override
     public boolean contains(String path) {
         return get(path) != null;
     }
@@ -106,10 +113,15 @@ public class ConfigFile implements IConfigFile {
         current.put(parts[parts.length - 1], value);
     }
 
-    @SuppressWarnings("unchecked")
     private Object get(String path) {
+        Object value = resolve(data, path);
+        return value != null ? value : defaults.get(path);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Object resolve(Map<String, Object> root, String path) {
         String[] parts = path.split("\\.");
-        Map<String, Object> current = data;
+        Map<String, Object> current = root;
         for (int i = 0; i < parts.length - 1; i++) {
             Object next = current.get(parts[i]);
             if (!(next instanceof Map)) return null;

@@ -9,7 +9,11 @@ public interface IConfigFile {
 
     void save();
 
+    /** Fallback used by getters and {@link #contains} when the path is absent from the file. */
     void addDefault(String path, Object value);
+
+    /** True if the path exists in the file or as a default. */
+    boolean contains(String path);
 
     String getString(String path);
 

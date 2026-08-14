@@ -17,6 +17,7 @@ public interface ILanguage {
 
     String getMessage(String path);
 
+    /** Writes the file. When copyDefaults is true, missing addDefault keys are persisted. */
     void save(boolean copyDefaults);
 
     IConfigFile getConfig();
