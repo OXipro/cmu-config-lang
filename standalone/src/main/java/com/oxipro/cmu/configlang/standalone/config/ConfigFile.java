@@ -155,7 +155,7 @@ public class ConfigFile implements IConfigFile {
         return value instanceof Number ? ((Number) value).floatValue() : 0f;
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public List<String> getStringList(String path) {
         Object value = get(path);
         if (!(value instanceof List)) return Collections.emptyList();

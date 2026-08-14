@@ -1,5 +1,7 @@
 package com.oxipro.cmu.configlang.api.config;
 
+import java.util.List;
+
 public interface IConfigFile {
     void load();
 
@@ -20,6 +22,8 @@ public interface IConfigFile {
     double getDouble(String path);
 
     float getFloat(String path);
+
+    List<String> getStringList(String path);
 
     String getFileName();
 }

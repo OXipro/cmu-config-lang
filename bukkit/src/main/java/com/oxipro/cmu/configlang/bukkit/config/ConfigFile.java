@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class ConfigFile implements IConfigFile {
 
@@ -77,6 +78,8 @@ public class ConfigFile implements IConfigFile {
     public float getFloat(String path) {
         return (float) configuration.getDouble(path);
     }
+
+    public List<String> getStringList(String path) { return configuration.getStringList(path); }
 
     public String getFileName() {
         String name = file.getName();
