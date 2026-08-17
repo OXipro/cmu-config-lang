@@ -35,5 +35,6 @@ public class CSSDBLanguageDB implements ILanguageDB {
     @Override
     public void setLocale(UUID playerId, Locale locale) {
         playerSettingCache.set(playerId, LANG_ISO_KEY, locale.toString());
+        playerSettingCache.save(playerId);
     }
 }
