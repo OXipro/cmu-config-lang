@@ -1,5 +1,7 @@
 package com.oxipro.cmu.configlang.api.language;
 
+import com.oxipro.cmu.configlang.api.config.IConfigFile;
+import com.oxipro.cmu.configlang.api.config.defaults.LanguageSettingsConfigPaths;
 import com.oxipro.cmu.configlang.api.language.defaults.DefaultValues;
 
 import java.util.Locale;
@@ -73,5 +75,31 @@ public final class LanguageSettings {
         public LanguageSettings build() {
             return new LanguageSettings(clientLocaleEnabled, ipLanguageEnabled, fallbackLocale);
         }
+    }
+
+    public static LanguageSettings fromConfig(IConfigFile config) {
+        boolean clientLocale = true;
+        boolean ipLanguage = true;
+        Locale fallback = Locale.US;
+        try {
+            clientLocale = config.getBoolean(LanguageSettingsConfigPaths.LANGUAGE_CLIENT_LOCALE);
+        } catch (Exception ignored) {
+        }
+        try {
+            ipLanguage = config.getBoolean(LanguageSettingsConfigPaths.LANGUAGE_IP);
+        } catch (Exception ignored) {
+        }
+        try {
+            String raw = config.getString(LanguageSettingsConfigPaths.LANGUAGE_FALLBACK);
+            if (raw != null && !raw.isBlank()) {
+                fallback = Locales.parse(raw);
+            }
+        } catch (Exception ignored) {
+        }
+        return LanguageSettings.builder()
+                .clientLocale(clientLocale)
+                .ipLanguage(ipLanguage)
+                .fallbackLocale(fallback)
+                .build();
     }
 }

@@ -19,4 +19,6 @@ public interface ILanguageManager {
     Locale getFallbackLocale();
 
     void setFallbackLocale(Locale fallbackLocale);
+
+    void setPlayerLanguage(UUID playerId, Locale locale);
 }

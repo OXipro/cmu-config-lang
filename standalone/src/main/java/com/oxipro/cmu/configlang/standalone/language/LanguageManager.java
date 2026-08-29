@@ -103,6 +103,7 @@ public class LanguageManager implements ILanguageManager {
         return getLanguage(null);
     }
 
+    @Override
     public void setPlayerLanguage(UUID playerId, Locale locale) {
         if (languageDB != null) languageDB.setLocale(playerId, locale);
     }

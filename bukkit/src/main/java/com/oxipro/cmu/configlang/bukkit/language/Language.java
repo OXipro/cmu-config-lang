@@ -50,7 +50,7 @@ public class Language implements ILanguage {
     @Override
     public String getMessage(String path) {
         if (config.get().contains(path)) return config.getString(path);
-        return path;
+        return "#config-lang: '" + path + "' is not set";
     }
 
     @Override
