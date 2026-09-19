@@ -17,6 +17,9 @@ public interface ILanguage {
 
     String getMessage(String path);
 
+    /** True if this language file (or its defaults) defines {@code path}. */
+    boolean has(String path);
+
     /** Writes the file. When copyDefaults is true, missing addDefault keys are persisted. */
     void save(boolean copyDefaults);
 

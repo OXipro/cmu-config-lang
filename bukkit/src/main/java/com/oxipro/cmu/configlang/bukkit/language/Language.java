@@ -43,14 +43,19 @@ public class Language implements ILanguage {
 
     @Override
     public List<String> getMessageAsList(String path) {
-        if (config.get().contains(path)) return config.get().getStringList(path);
+        if (has(path)) return config.get().getStringList(path);
         return List.of(path);
     }
 
     @Override
     public String getMessage(String path) {
-        if (config.get().contains(path)) return config.getString(path);
+        if (has(path)) return config.getString(path);
         return "#config-lang: '" + path + "' is not set";
+    }
+
+    @Override
+    public boolean has(String path) {
+        return path != null && config.contains(path);
     }
 
     @Override

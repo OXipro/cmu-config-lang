@@ -110,11 +110,13 @@ configLang.init(defaults);
 
 ```java
 ILanguage lang = languageManager.getPlayerLanguage(player);
-String text = lang.getMessage("welcome");
+if (lang.has("welcome")) {
+    String text = lang.getMessage("welcome");
+}
 List<String> lines = lang.getMessageAsList("help.lines");
 ```
 
-If a path is missing, `getMessage` returns a `#config-lang: 'path' is not set` marker so you notice it in-game.
+`has(path)` is a map lookup on the language file (and defaults). If a path is missing, `getMessage` returns a `#config-lang: 'path' is not set` marker so you notice it in-game. Prefer `has` when a missing key is a normal fallback, not an error.
 
 `fancy-name` is the display name of the language (`lang.getFancyName()`).
 
