@@ -131,6 +131,11 @@ public class ConfigFile implements IConfigFile {
     }
 
     @Override
+    public Object getValue(String path) {
+        return get(path);
+    }
+
+    @Override
     public String getString(String path) {
         Object value = get(path);
         return value != null ? String.valueOf(value) : null;

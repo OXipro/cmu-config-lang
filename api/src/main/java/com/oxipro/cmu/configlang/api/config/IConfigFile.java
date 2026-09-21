@@ -29,5 +29,8 @@ public interface IConfigFile {
 
     List<String> getStringList(String path);
 
+    /** Raw YAML value at path, or the addDefault fallback. */
+    Object getValue(String path);
+
     String getFileName();
 }

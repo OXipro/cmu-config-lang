@@ -85,6 +85,11 @@ public class ConfigFile implements IConfigFile {
 
     public List<String> getStringList(String path) { return configuration.getStringList(path); }
 
+    @Override
+    public Object getValue(String path) {
+        return configuration.get(path);
+    }
+
     public String getFileName() {
         String name = file.getName();
         int dot = name.lastIndexOf('.');
