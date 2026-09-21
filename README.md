@@ -70,4 +70,4 @@ That installs the modules into your local Maven repository so other projects can
 
 ## License
 
-[GNU Affero General Public License v3.0](LICENSE.md)
+[MIT License](LICENSE.md)
