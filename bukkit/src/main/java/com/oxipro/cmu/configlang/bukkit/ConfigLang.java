@@ -1,5 +1,6 @@
 package com.oxipro.cmu.configlang.bukkit;
 
+import com.oxipro.cmu.configlang.api.IConfigLang;
 import com.oxipro.cmu.configlang.api.language.ILanguage;
 import com.oxipro.cmu.configlang.api.language.LanguageSettings;
 import com.oxipro.cmu.configlang.bukkit.language.LanguageManager;
@@ -11,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Locale;
 import java.util.Map;
 
-public class ConfigLang {
+public class ConfigLang implements IConfigLang {
 
     private final JavaPlugin plugin;
     private final CSSDBLanguageDB playerLanguageStore;
@@ -47,10 +48,12 @@ public class ConfigLang {
                 .build());
     }
 
+    @Override
     public LanguageManager getLanguageManager() {
         return languageManager;
     }
 
+    @Override
     public LanguageSettings getSettings() {
         return settings;
     }

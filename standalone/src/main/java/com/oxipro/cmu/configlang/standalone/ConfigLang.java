@@ -1,5 +1,6 @@
 package com.oxipro.cmu.configlang.standalone;
 
+import com.oxipro.cmu.configlang.api.IConfigLang;
 import com.oxipro.cmu.configlang.api.language.ILanguage;
 import com.oxipro.cmu.configlang.api.language.LanguageSettings;
 import com.oxipro.cmu.configlang.api.language.detection.ILanguageDetector;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class ConfigLang {
+public class ConfigLang implements IConfigLang {
 
     private final File dataFolder;
     private final CSSDBLanguageDB playerLanguageStore;
@@ -55,10 +56,12 @@ public class ConfigLang {
         return providers;
     }
 
+    @Override
     public LanguageManager getLanguageManager() {
         return languageManager;
     }
 
+    @Override
     public LanguageSettings getSettings() {
         return settings;
     }
