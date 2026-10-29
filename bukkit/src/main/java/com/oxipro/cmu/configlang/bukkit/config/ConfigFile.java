@@ -41,8 +41,9 @@ public class ConfigFile implements IConfigFile {
         load();
     }
 
-    public void save() {
+    public void save(boolean copyDefaults) {
         try {
+            configuration.options().copyDefaults(copyDefaults);
             configuration.save(file);
         } catch (IOException e) {
             e.printStackTrace();

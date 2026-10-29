@@ -7,7 +7,7 @@ public interface IConfigFile {
 
     void reload();
 
-    void save();
+    void save(boolean copyDefaults);
 
     /** Fallback used by getters and {@link #contains} when the path is absent from the file. */
     void addDefault(String path, Object value);

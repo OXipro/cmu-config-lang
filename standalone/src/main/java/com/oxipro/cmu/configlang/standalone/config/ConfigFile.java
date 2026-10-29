@@ -71,10 +71,6 @@ public class ConfigFile implements IConfigFile {
     }
 
     @Override
-    public void save() {
-        save(true);
-    }
-
     public void save(boolean copyDefaults) {
         if (copyDefaults) {
             for (Map.Entry<String, Object> entry : defaults.entrySet()) {

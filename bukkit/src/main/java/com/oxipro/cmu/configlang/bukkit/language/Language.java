@@ -60,8 +60,7 @@ public class Language implements ILanguage {
 
     @Override
     public void save(boolean copyDefaults) {
-        config.get().options().copyDefaults(copyDefaults);
-        config.save();
+        config.save(copyDefaults);
     }
 
     @Override
